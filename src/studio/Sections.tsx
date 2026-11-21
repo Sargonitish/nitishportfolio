@@ -679,7 +679,7 @@ function CertStack() {
       </div>
       <div className="cs-stack" aria-live="polite">
         {certs.map((c, i) => (
-          <article className={`cs-card ${STACK_TONE[i % STACK_TONE.length]}`} key={c.title} onClick={() => fire("cs:next")}>
+          <article className={`cs-card ${STACK_TONE[i % STACK_TONE.length]}`} key={`${c.title}-${c.when}`} onClick={() => fire("cs:next")}>
             <span className="cs-mark">{String(i + 1).padStart(2, "0")}</span>
             <div className="cs-logo">
               {c.logo ? (

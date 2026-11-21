@@ -144,7 +144,7 @@ export const education = [
 
 export const certs = [
   { title: "Basics of Electronics & Embedded System", org: "IIT Madras (Centre for Outreach & Digital Education)", when: "Jan 5–9, 2026", logo: "iitm.webp", tone: "w" },
-  { title: "Basics of Electronics & Embedded System", org: "IIT Madras (Centre for Outreach & Digital Education)", when: "May 15–19, 2023", logo: "iitm-23.webp", tone: "w" },
+  { title: "Foundations of Electronics", org: "IIT Madras (Centre for Outreach & Digital Education)", when: "May 15–19, 2023", logo: "iitm-23.webp", tone: "w" },
   { title: "PromptCraft — ZORPHIX 2026", org: "Chennai Institute of Technology", when: "Feb 5, 2026", logo: "citzopphx.webp", tone: "o" },
   { title: "Tehnisys — IEEE IES EVODGE 2.0", org: "Sai Ram Engineering College", when: "Dec 10, 2026", logo: "saiamtechnisys.webp", tone: "w" },
   { title: "Future Frontiers: Science of Tomorrow", org: "St. Joseph's Institute of Tech & Altrosyn", when: "Mar 7–11, 2025", logo: "sjitff.webp", tone: "o" },
