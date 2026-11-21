@@ -8,7 +8,7 @@ import Hero from "./Hero";
 import Contact from "./Contact";
 import Chat from "./Chat";
 import EasterEgg from "./EasterEgg";
-import { About, Faq, Footer, Process, Ribbon, Services, Skills, Story, Work } from "./Sections";
+import { About, Faq, Footer, Process, Ribbon, Services, Skills, Story } from "./Sections";
 
 export default function Studio() {
   const [ready, setReady] = useState(false);
@@ -75,7 +75,6 @@ export default function Studio() {
         <Ribbon />
         <About />
         <Services />
-        <Work />
         <Process />
         <Story />
         <Skills />

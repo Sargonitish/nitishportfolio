@@ -160,11 +160,11 @@ export default function Hero({ ready }: { ready: boolean }) {
                 <Mail size={14} /> TRANSMIT EMAIL
               </a>
               <a
-                href="#projects"
+                href="#skills"
                 className="neo-btn neo-btn-cyan"
-                aria-label="Explore Projects"
+                aria-label="Explore Skills"
               >
-                <ArrowUpRight size={14} /> EXPLORE PROJECTS
+                <ArrowUpRight size={14} /> EXPLORE SKILLS
               </a>
             </div>
           </div>

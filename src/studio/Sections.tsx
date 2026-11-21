@@ -858,10 +858,10 @@ export function Footer() {
         </div>
         <nav className="ft-col" aria-label="Footer">
           <h4>Main menu</h4>
-          <a href="#projects">Projects</a>
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
           <a href="#services">Services</a>
           <a href="#experience">Experience</a>
-          <a href="#about">About</a>
           <a href={me.resume} target="_blank" rel="noopener noreferrer">Resume</a>
           <a href="http://nitishportfolio.xo.je/" target="_blank" rel="noopener noreferrer">Portfolio<ArrowUpRight size={14} strokeWidth={2.4} /></a>
         </nav>

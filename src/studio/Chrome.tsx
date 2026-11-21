@@ -69,7 +69,7 @@ export function Nav() {
   return (
     <header className="nav">
       <nav className="nav-l">
-        <a className="pill-w" href="#projects" data-cursor="GO">Projects</a>
+        <a className="pill-w" href="#about" data-cursor="GO">About</a>
         <a className="pill-w" href="#skills" data-cursor="GO">Skills</a>
         <a className="pill-w" href="#services" data-cursor="GO">Services</a>
         <a className="pill-w" href="#experience" data-cursor="GO">Experience</a>
