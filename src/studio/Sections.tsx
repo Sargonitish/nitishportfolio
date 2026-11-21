@@ -877,7 +877,12 @@ export function Footer() {
         <div><h4>Handmade by one human.</h4><p>Hand-coded with modern tech.</p></div>
         <div><h4>Based in</h4><p>{me.location}</p></div>
       </div>
-      <p className="ft-copy">© {new Date().getFullYear()} {me.name}</p>
+      <div className="ft-v-badge-wrap">
+        <div className="ft-v-badge">
+          <span className="dot" /> VISITOR #12,421 // SYSTEM ALL OK
+        </div>
+      </div>
+      <p className="ft-copy">© {new Date().getFullYear()} {me.name} • Tagore Engineering College</p>
       <div className="ft-word" aria-hidden>NITISH</div>
     </footer>
   );
