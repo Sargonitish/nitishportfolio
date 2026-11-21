@@ -877,10 +877,6 @@ export function Faq() {
             <div className="qa-body">
               <div className="qa-a">
                 <p>{f.a}</p>
-                <span className="qa-av">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/me-cut.webp" alt="" aria-hidden width={48} height={48} loading="lazy" decoding="async" />
-                </span>
               </div>
             </div>
           </div>
