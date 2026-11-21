@@ -244,6 +244,7 @@ export function Services() {
       const mm = gsap.matchMedia();
       mm.add("(min-width: 900px)", () => {
         const line = root.current!.querySelector<SVGPathElement>(".sp-line")!;
+        const lineBg = root.current!.querySelector<SVGPathElement>(".sp-line-bg")!;
         const ghost = root.current!.querySelector<SVGPathElement>(".sp-ghost")!;
         const pen = root.current!.querySelector<SVGGElement>(".sp-pen")!;
         const items = gsap.utils.toArray<HTMLElement>(".sp-item");
@@ -260,7 +261,7 @@ export function Services() {
           return best;
         });
 
-        gsap.set(line, { drawSVG: "0%" });
+        gsap.set([line, lineBg], { drawSVG: "0%" });
         gsap.set(items, { autoAlpha: 0 });
         const shown = items.map(() => false);
 
@@ -270,7 +271,7 @@ export function Services() {
           const nx = ghost.getPointAtLength(Math.min(total, len + 2));
           const ang = (Math.atan2(nx.y - pt.y, nx.x - pt.x) * 180) / Math.PI;
           pen.setAttribute("transform", `translate(${pt.x} ${pt.y}) rotate(${ang})`);
-          gsap.set(line, { drawSVG: `0% ${p * 100}%` });
+          gsap.set([line, lineBg], { drawSVG: `0% ${p * 100}%` });
           items.forEach((el, i) => {
             const on = len >= at[i] - (i === 0 ? 900 : 300);
             if (on === shown[i]) return;
@@ -288,8 +289,30 @@ export function Services() {
         };
         place(0);
         ScrollTrigger.create({
-          trigger: ".sp-scene", start: "top 72%", end: "bottom 62%", scrub: 0.5,
+          trigger: ".sp-scene", start: "top 80%", end: "bottom 62%", scrub: 0.5,
           onUpdate: (self) => place(self.progress),
+        });
+      });
+
+      mm.add("(max-width: 899px)", () => {
+        const mLine = root.current!.querySelector<SVGLineElement>(".srvs-rail-line");
+        const mLineBg = root.current!.querySelector<SVGLineElement>(".srvs-rail-line-bg");
+        const mPen = root.current!.querySelector<HTMLElement>(".srvs-rail-pen");
+        if (!mLine || !mPen) return;
+
+        gsap.set([mLine, mLineBg], { drawSVG: "0%" });
+        gsap.set(mPen, { top: "0%" });
+
+        ScrollTrigger.create({
+          trigger: ".srvs-wrap",
+          start: "top 80%",
+          end: "bottom 70%",
+          scrub: 0.5,
+          onUpdate: (self) => {
+            const p = self.progress;
+            gsap.set([mLine, mLineBg], { drawSVG: `0% ${p * 100}%` });
+            gsap.set(mPen, { top: `${p * 100}%` });
+          },
         });
       });
     }, root);
@@ -307,8 +330,10 @@ export function Services() {
       {/* Desktop: scroll-drawn line */}
       <div className="sp-scene" style={{ aspectRatio: `${PW} / ${PH}` }}>
         <svg className="sp-svg" viewBox={`0 0 ${PW} ${PH}`} aria-hidden>
-          <path className="sp-ghost" d={PATH_D} fill="none" stroke="#fcc7b0" strokeWidth="30" strokeLinecap="round" />
-          <path className="sp-line" d={PATH_D} fill="none" stroke="var(--orange)" strokeWidth="30" strokeLinecap="round" />
+          <path className="sp-ghost-bg" d={PATH_D} fill="none" stroke="#0d0d0d" strokeWidth="40" strokeLinecap="round" />
+          <path className="sp-ghost" d={PATH_D} fill="none" stroke="#fff4b8" strokeWidth="26" strokeLinecap="round" />
+          <path className="sp-line-bg" d={PATH_D} fill="none" stroke="#0d0d0d" strokeWidth="40" strokeLinecap="round" />
+          <path className="sp-line" d={PATH_D} fill="none" stroke="#ff5400" strokeWidth="26" strokeLinecap="round" />
           <g className="sp-pen"><PenHead /></g>
         </svg>
         {services.map((s, i) => {
@@ -329,23 +354,38 @@ export function Services() {
         })}
       </div>
 
-      {/* Mobile / tablet: simple expanding rows */}
-      <div className="srvs">
-        {services.map((s, i) => (
-          <div className={`srv ${open === i ? "open" : ""}`} key={s.n} data-cursor="">
-            <button className="srv-top" onClick={() => setOpen(open === i ? null : i)} aria-expanded={open === i}>
-              <span className="srv-n">{s.n}</span>
-              <h3>{s.title}</h3>
-              <i><ArrowUpRight size={22} strokeWidth={2.4} /></i>
-            </button>
-            <div className="srv-more">
-              <div>
-                <p>{s.body}</p>
-                <ul>{s.tags.map((t) => <li key={t}>{t}</li>)}</ul>
+      {/* Mobile / tablet: simple expanding rows with animated tracing pen */}
+      <div className="srvs-wrap">
+        <div className="srvs-rail" aria-hidden>
+          <svg className="srvs-rail-svg" viewBox="0 0 32 1000" preserveAspectRatio="none">
+            <line x1="16" y1="0" x2="16" y2="1000" stroke="#0d0d0d" strokeWidth="12" strokeLinecap="round" />
+            <line x1="16" y1="0" x2="16" y2="1000" stroke="#fff4b8" strokeWidth="8" strokeLinecap="round" />
+            <line className="srvs-rail-line-bg" x1="16" y1="0" x2="16" y2="1000" stroke="#0d0d0d" strokeWidth="12" strokeLinecap="round" />
+            <line className="srvs-rail-line" x1="16" y1="0" x2="16" y2="1000" stroke="#ff5400" strokeWidth="8" strokeLinecap="round" />
+          </svg>
+          <div className="srvs-rail-pen">
+            <svg viewBox="-40 -40 80 80" width="36" height="36" style={{ overflow: "visible" }}>
+              <PenHead />
+            </svg>
+          </div>
+        </div>
+        <div className="srvs">
+          {services.map((s, i) => (
+            <div className={`srv ${open === i ? "open" : ""}`} key={s.n} data-cursor="">
+              <button className="srv-top" onClick={() => setOpen(open === i ? null : i)} aria-expanded={open === i}>
+                <span className="srv-n">{s.n}</span>
+                <h3>{s.title}</h3>
+                <i><ArrowUpRight size={22} strokeWidth={2.4} /></i>
+              </button>
+              <div className="srv-more">
+                <div>
+                  <p>{s.body}</p>
+                  <ul>{s.tags.map((t) => <li key={t}>{t}</li>)}</ul>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
       <div className="svc-cta">

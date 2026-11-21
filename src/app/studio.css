@@ -456,8 +456,43 @@ main {
 .sp-bubble ul { display: none; }
 .sp-bubble li { font-size: 12px; font-weight: 700; padding: .25em .75em; border: 2px solid var(--neo-black); border-radius: 4px; }
 
-/* simple rows (mobile / tablet) */
-.srvs { display: none; max-width: 1400px; margin: 0 auto; }
+/* simple rows (mobile / tablet with animated drawing rail) */
+.srvs-wrap {
+  position: relative;
+  display: none;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.srvs-rail {
+  position: absolute;
+  top: 16px;
+  bottom: 24px;
+  left: 6px;
+  width: 24px;
+  pointer-events: none;
+  z-index: 5;
+}
+.srvs-rail-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.srvs-rail-pen {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, -50%);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(2px 2px 0px #0d0d0d);
+  will-change: top;
+  pointer-events: none;
+}
+.srvs { display: block; max-width: 1400px; margin: 0 auto; }
 .srv { position: relative; border: var(--neo-border); border-radius: 6px; margin-bottom: 12px; background: #ffffff; box-shadow: 4px 4px 0px var(--neo-black); overflow: hidden; transition: color .3s; }
 .srv::before { content: ""; position: absolute; inset: 0; background: var(--neo-yellow); transform: translateY(101%); transition: transform .4s var(--ease); }
 .srv:hover, .srv.open { color: var(--neo-black); }
@@ -475,7 +510,7 @@ main {
 .srv-more li { padding: .35em .95em; border: 2px solid var(--neo-black); border-radius: 4px; font-size: 12px; font-weight: 700; background: var(--neo-white); box-shadow: 2px 2px 0px var(--neo-black); }
 @media (max-width: 899px) {
   .sp-scene { display: none; }
-  .srvs { display: block; }
+  .srvs-wrap { display: block; padding-left: clamp(32px, 6vw, 46px); }
 }
 
 /* ---------- skills ---------- */
