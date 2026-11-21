@@ -1,5 +1,9 @@
 // All portfolio content for Nitish S — directly extracted and refined from his original portfolio index.html & activities.html.
 
+/* ==========================================================================
+   EDIT HERE: PERSONAL INFO, SOCIAL LINKS & RESUME
+   Change your name, email, phone number, location, resume PDF path, and social links here.
+   ========================================================================== */
 export const me = {
   name: "Nitish S",
   handle: "sargonitish",
@@ -15,12 +19,20 @@ export const me = {
   ],
 };
 
+/* ==========================================================================
+   EDIT HERE: STATS COUNTERS
+   Modify the key metric numbers, labels, and descriptions displayed on the about section.
+   ========================================================================== */
 export const stats = [
   { value: 5, suffix: "+", label: "Portfolios & web apps delivered", note: "Student & academic project showcases" },
   { value: 10, suffix: "+", label: "Hackathons & competitive builds", note: "Finalist & award-winning solutions" },
   { value: 9, suffix: "+", label: "Certifications & milestones", note: "IIT Madras, NPTEL, St. Joseph's & Pearson" },
 ];
 
+/* ==========================================================================
+   EDIT HERE: SERVICES OFFERED
+   Update the capabilities, titles, and tags you offer to clients or collaborators.
+   ========================================================================== */
 export type Service = { n: string; title: string; words: [string, string]; icon: string; body: string; tags: string[] };
 
 export const services: Service[] = [
@@ -50,6 +62,11 @@ export const services: Service[] = [
     tags: ["Cross-Browser", "Responsive QA", "Performance", "Usability"] },
 ];
 
+/* ==========================================================================
+   EDIT HERE: PROJECTS LIST
+   Add, edit, or remove projects. To add a project, copy the template from HOW_TO_UPDATE.md.
+   Make sure shots exist in /public/shots/ and logos in /public/logos/
+   ========================================================================== */
 export type Project = {
   name: string;
   logo: string;
@@ -83,6 +100,10 @@ export const projects: Project[] = [
 
 export const filters = ["All", "AI", "Software", "Web apps", "Websites"] as const;
 
+/* ==========================================================================
+   EDIT HERE: EXPERIENCE, HACKATHONS & INTERNSHIPS
+   Manage your hackathons, ideathons, internships, and extracurricular achievements.
+   ========================================================================== */
 export type Role = { title: string; org: string; when: string; where: string; body: string; logo: string };
 export type RoleGroup = { id: string; label: string; roles: Role[] };
 
@@ -137,11 +158,19 @@ export const experience: RoleGroup[] = [
   },
 ];
 
+/* ==========================================================================
+   EDIT HERE: EDUCATION
+   Update your degree, colleges/schools, and graduation years here.
+   ========================================================================== */
 export const education = [
   { school: "Tagore Engineering College", deg: "B.E. Computer Science and Engineering — Present", when: "2025 — 2029", logo: "tagore.svg" },
   { school: "Prince Matriculation Higher Secondary School", deg: "Higher Secondary Education — Foundational Computation Logic", when: "Completed 2025", logo: "prince.svg" },
 ];
 
+/* ==========================================================================
+   EDIT HERE: CERTIFICATIONS
+   Add or update certificates in the 3D interactive stack.
+   ========================================================================== */
 export const certs = [
   { title: "Basics of Electronics & Embedded System", org: "IIT Madras (Centre for Outreach & Digital Education)", when: "Jan 5–9, 2026", logo: "iitm.webp", tone: "w" },
   { title: "Foundations of Electronics", org: "IIT Madras (Centre for Outreach & Digital Education)", when: "May 15–19, 2023", logo: "iitm-23.webp", tone: "w" },
@@ -156,12 +185,20 @@ export const certs = [
   { title: "Fireless Cooking Winner (1st Place)", org: "Cultural Fest 2025", when: "2025", logo: "tagorefirelesscooking.webp", tone: "o" },
 ];
 
+/* ==========================================================================
+   EDIT HERE: SKILLS LIST
+   List of skills animated in the sticker marquees.
+   ========================================================================== */
 export const skills = [
   "React.js", "Tailwind CSS", "JavaScript", "Node.js", "Express.js", "MongoDB",
   "Python", "Java", "C++", "C", "HTML5", "CSS3", "Git", "GitHub", "VS Code",
   "Hardware Integration", "Microcontrollers", "Sensors", "IoT", "Cloud Computing", "Problem Solving",
 ];
 
+/* ==========================================================================
+   EDIT HERE: 4-STEP PROCESS
+   The 4 steps explaining how you approach and build projects.
+   ========================================================================== */
 export const process = [
   { n: "01", title: "Discover & Scope", body: "Understanding the problem constraints, technical requirements, and target outcomes through clear discussion." },
   { n: "02", title: "Architect & Model", body: "Designing clean data schemas, software components, and hardware interfaces before writing production code." },
@@ -169,6 +206,10 @@ export const process = [
   { n: "04", title: "Deliver & Polish", body: "Testing cross-device compatibility, optimizing performance, and deploying production-ready solutions." },
 ];
 
+/* ==========================================================================
+   EDIT HERE: FREQUENTLY ASKED QUESTIONS
+   Add or update Q&As shown in the FAQ accordion section.
+   ========================================================================== */
 export const faq = [
   { q: "What is your main focus as a developer?", a: "I'm a student developer and curious learner exploring computer science at Tagore Engineering College. I enjoy building web apps with React and Node.js, AI educational tools like NeuroEdu, and hardware-software integrations." },
   { q: "Tell me about your NeuroEdu project.", a: "NeuroEdu is an intelligent educational platform that uses AI to analyze student behavior and optimize learning outcomes. It tracks focus patterns, identifies distractions, and adapts study recommendations in real-time." },

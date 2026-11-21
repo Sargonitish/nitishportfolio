@@ -1,7 +1,9 @@
 "use client";
 
+/* EDIT HERE: CHROME COMPONENTS (LOADER, NAVIGATION, MOBILE MENU, CURSOR) */
+
 import { useEffect, useRef, useState } from "react";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Menu, X, FileText, Send, Sparkles } from "lucide-react";
 import { gsap, reducedMotion, setupGsap } from "./motion";
 import { me } from "./data";
 
@@ -15,6 +17,7 @@ export function Loader({ onDone }: { onDone: () => void }) {
     if (reducedMotion()) { hide(); onDone(); return; }
 
     // the wordmark pops in, rests for a beat (and waits for the fonts), then the screen lifts away
+    const isMobile = window.innerWidth < 768 || window.matchMedia("(pointer: coarse)").matches;
     let played = false;
     let fontsReady = false;
     let finished = false;
@@ -23,22 +26,22 @@ export function Loader({ onDone }: { onDone: () => void }) {
       finished = true;
       window.clearTimeout(hard);
       gsap.timeline({ onComplete: hide })
-        .to(".ld-ch", { yPercent: -110, opacity: 0, duration: 0.55, ease: "power4.in", stagger: 0.025 })
-        .to(root, { yPercent: -112, duration: 1, ease: "expo.inOut" }, "-=0.2")
-        .call(onDone, undefined, "-=0.75");
+        .to(".ld-ch", { yPercent: -110, opacity: 0, duration: isMobile ? 0.35 : 0.55, ease: "power4.in", stagger: 0.02 })
+        .to(root, { yPercent: -112, duration: isMobile ? 0.6 : 1, ease: "expo.inOut" }, "-=0.15")
+        .call(onDone, undefined, isMobile ? "-=0.4" : "-=0.75");
     };
     const check = () => { if (played && fontsReady) finish(); };
-    const hard = window.setTimeout(() => { played = true; fontsReady = true; finish(); }, 6000);
+    const hard = window.setTimeout(() => { played = true; fontsReady = true; finish(); }, isMobile ? 2500 : 5000);
 
     Promise.all([
       document.fonts.load('700 100px "Mdnichrometest"'),
       document.fonts.load('800 100px "Mdnichrometest Dark"'),
     ]).catch(() => undefined).then(() => { fontsReady = true; check(); });
 
-    const tl = gsap.timeline({ delay: 0.15, onComplete: () => { played = true; check(); } });
+    const tl = gsap.timeline({ delay: isMobile ? 0.05 : 0.15, onComplete: () => { played = true; check(); } });
     tl.fromTo(".ld-ch", { yPercent: 115, opacity: 0, rotate: () => gsap.utils.random(-12, 12) },
-      { yPercent: 0, opacity: 1, rotate: 0, duration: 0.8, stagger: 0.055, ease: "back.out(1.8)" })
-      .to({}, { duration: 0.55 });
+      { yPercent: 0, opacity: 1, rotate: 0, duration: isMobile ? 0.45 : 0.8, stagger: isMobile ? 0.03 : 0.055, ease: "back.out(1.8)" })
+      .to({}, { duration: isMobile ? 0.2 : 0.55 });
 
     return () => { window.clearTimeout(hard); tl.kill(); };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -56,8 +59,11 @@ export function Loader({ onDone }: { onDone: () => void }) {
   );
 }
 
+/* EDIT HERE: NAVIGATION BAR & MOBILE MENU */
 export function Nav() {
   const [time, setTime] = useState("");
+  const [menuOpen, setMenuOpen] = useState(false);
+
   useEffect(() => {
     const fmt = () =>
       new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: "Asia/Kolkata" }).format(new Date());
@@ -66,32 +72,124 @@ export function Nav() {
     return () => { window.clearTimeout(first); window.clearInterval(id); };
   }, []);
 
+  // Lock scroll when mobile menu is open
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMenuOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [menuOpen]);
+
+  const closeMenu = () => setMenuOpen(false);
+
   return (
-    <header className="nav">
-      <nav className="nav-l">
-        <a className="pill-w" href="#about" data-cursor="GO">About</a>
-        <a className="pill-w" href="#skills" data-cursor="GO">Skills</a>
-        <a className="pill-w" href="#services" data-cursor="GO">Services</a>
-        <a className="pill-w" href="#experience" data-cursor="GO">Experience</a>
-      </nav>
-      <a className="logo neo-logo-box" href="#top" aria-label="Nitish S, home">NITISH.S</a>
-      <div className="nav-r">
-        <p className="nav-hours">{me.location}<br />{time ? `${time} IST` : " "}</p>
-        <a className="cta" href="#contact" data-contact data-cursor="HI">
-          <span>Hire me</span>
-          <i><ArrowUpRight size={14} strokeWidth={2.4} /></i>
-        </a>
-      </div>
-    </header>
+    <>
+      <header className="nav">
+        {/* Desktop Left Nav (hidden on mobile) */}
+        <nav className="nav-l desktop-nav" aria-label="Main menu desktop">
+          <a className="pill-w" href="#about" data-cursor="GO">About</a>
+          <a className="pill-w" href="#skills" data-cursor="GO">Skills</a>
+          <a className="pill-w" href="#services" data-cursor="GO">Services</a>
+          <a className="pill-w" href="#experience" data-cursor="GO">Experience</a>
+        </nav>
+
+        {/* Brand Logo Box */}
+        <a className="logo neo-logo-box" href="#top" aria-label="Nitish S, back to top">NITISH.S</a>
+
+        {/* Desktop Right (hidden on mobile) */}
+        <div className="nav-r desktop-nav">
+          <p className="nav-hours">{me.location}<br />{time ? `${time} IST` : " "}</p>
+          <a className="cta" href="#contact" data-contact data-cursor="HI">
+            <span>Hire me</span>
+            <i><ArrowUpRight size={14} strokeWidth={2.4} /></i>
+          </a>
+        </div>
+
+        {/* Mobile Hamburger Button (hidden on desktop) */}
+        <button
+          className="nav-burger mobile-only"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={menuOpen}
+        >
+          {menuOpen ? <X size={22} strokeWidth={2.8} /> : <Menu size={22} strokeWidth={2.8} />}
+        </button>
+      </header>
+
+      {/* Mobile Neo-Brutalist Drawer Menu */}
+      {menuOpen && (
+        <div className="mobile-drawer-overlay" onClick={closeMenu} role="dialog" aria-modal="true" aria-label="Mobile Navigation Menu">
+          <div className="mobile-drawer" onClick={(e) => e.stopPropagation()}>
+            <div className="mobile-drawer-header">
+              <span className="mobile-drawer-title">
+                <Sparkles size={16} /> NAVIGATION
+              </span>
+              <button className="mobile-drawer-close" onClick={closeMenu} aria-label="Close menu">
+                <X size={22} strokeWidth={2.5} />
+              </button>
+            </div>
+
+            <nav className="mobile-nav-links" aria-label="Mobile navigation links">
+              <a href="#about" onClick={closeMenu} className="mob-link">
+                <span>01. ABOUT</span>
+                <ArrowUpRight size={18} />
+              </a>
+              <a href="#skills" onClick={closeMenu} className="mob-link">
+                <span>02. SKILLS</span>
+                <ArrowUpRight size={18} />
+              </a>
+              <a href="#services" onClick={closeMenu} className="mob-link">
+                <span>03. SERVICES</span>
+                <ArrowUpRight size={18} />
+              </a>
+              <a href="#experience" onClick={closeMenu} className="mob-link">
+                <span>04. EXPERIENCE</span>
+                <ArrowUpRight size={18} />
+              </a>
+              <a href={me.resume} target="_blank" rel="noopener noreferrer" onClick={closeMenu} className="mob-link cv-link">
+                <span className="flex items-center gap-2"><FileText size={18} /> RESUME (PDF)</span>
+                <ArrowUpRight size={18} />
+              </a>
+            </nav>
+
+            <div className="mobile-drawer-footer">
+              <p className="mob-time-info">
+                📍 {me.location} • {time ? `${time} IST` : "IST"}
+              </p>
+              <button
+                className="mob-hire-btn"
+                onClick={() => {
+                  closeMenu();
+                  window.dispatchEvent(new CustomEvent("contact:open"));
+                }}
+              >
+                <Send size={16} /> INITIALIZE CONTACT
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 
+/* Custom Cursor (Touch devices automatically hidden via media queries) */
 export function Cursor() {
   const dot = useRef<HTMLDivElement>(null);
   const label = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    if (!window.matchMedia("(pointer: fine)").matches) return;
+    // Only mount cursor logic on devices with fine pointer (mouse) and hover capability
+    if (!window.matchMedia("(pointer: fine) and (hover: hover)").matches) return;
     const d = dot.current!;
     const x = gsap.quickTo(d, "x", { duration: 0.35, ease: "power3" });
     const y = gsap.quickTo(d, "y", { duration: 0.35, ease: "power3" });

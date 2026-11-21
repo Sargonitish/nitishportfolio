@@ -32,7 +32,12 @@ export const metadata: Metadata = {
   formatDetection: { telephone: false },
 };
 
-export const viewport: Viewport = { themeColor: "#f9e2e1", width: "device-width", initialScale: 1 };
+export const viewport: Viewport = {
+  themeColor: "#FFEA00",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
 
 // Structured data so search engines understand who this is and what is on offer.
 const jsonLd = {

@@ -58,6 +58,10 @@ export function Ribbon() {
   );
 }
 
+/* ==========================================================================
+   EDIT HERE: ABOUT & STATS SECTION
+   ========================================================================== */
+
 /* ---------- About: scroll-filled statement + stats ---------- */
 
 const STATEMENT =
@@ -351,6 +355,10 @@ export function Services() {
   );
 }
 
+/* ==========================================================================
+   EDIT HERE: WORK & PROJECTS SECTION
+   ========================================================================== */
+
 /* ---------- Work: filterable grid, wave-mask hover reveals the mobile view ---------- */
 
 const INITIAL = 9;
@@ -397,7 +405,7 @@ function Card({ p }: { p: Project }) {
     >
       <div className="card-media" ref={media}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="shot" src={p.shot} alt={`${p.name} website preview`} loading="lazy" decoding="async" />
+        <img className="shot" src={p.shot} alt={`${p.name} website preview`} width={1000} height={700} loading="lazy" decoding="async" />
         <svg className="brush" viewBox="0 0 1000 800" preserveAspectRatio="xMidYMid slice" aria-hidden>
           <path className="brush-fg" d={BRUSH} />
         </svg>
@@ -493,6 +501,10 @@ export function Work() {
   );
 }
 
+/* ==========================================================================
+   EDIT HERE: PROCESS WORKFLOW SECTION
+   ========================================================================== */
+
 /* ---------- Process ---------- */
 
 export function Process() {
@@ -530,6 +542,10 @@ export function Process() {
     </section>
   );
 }
+
+/* ==========================================================================
+   EDIT HERE: EXPERIENCE & EDUCATION SECTION
+   ========================================================================== */
 
 /* ---------- Experience: tabs + hover-expand rows ---------- */
 
@@ -575,7 +591,7 @@ export function Story() {
           <div className={`row ${open === i ? "open" : ""}`} key={r.title + r.org} onMouseEnter={() => setOpen(i)} data-cursor="">
             <button className="row-top" onClick={() => setOpen(open === i ? null : i)} aria-expanded={open === i}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img className="row-logo" src={`/logos/${r.logo}`} alt={`${r.org} logo`} loading="lazy" />
+              <img className="row-logo" src={`/logos/${r.logo}`} alt={`${r.org} logo`} width={48} height={48} loading="lazy" decoding="async" />
               <span className="row-main">
                 <h3 className="row-role">{r.title}</h3>
                 <span className="row-org">{r.org}</span>
@@ -590,7 +606,7 @@ export function Story() {
         {education.map((e) => (
           <div className="also-card" key={e.school}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={`/logos/${e.logo}`} alt="" aria-hidden />
+            <img src={`/logos/${e.logo}`} alt="" aria-hidden width={48} height={48} loading="lazy" decoding="async" />
             <span className="eyebrow-s">EDUCATION · {e.when}</span>
             <h4>{e.school}</h4>
             <p>{e.deg}</p>
@@ -605,6 +621,10 @@ export function Story() {
 /* ---------- Certifications: a stack of tilted cards that flick through ---------- */
 
 const STACK_ROT = [-2, 4, -6, 7, -8];
+/* ==========================================================================
+   EDIT HERE: CERTIFICATIONS STACK
+   ========================================================================== */
+
 const STACK_TONE = ["tone-o", "tone-w", "tone-b", "tone-p", "tone-w", "tone-o"];
 
 function CertStack() {
@@ -684,7 +704,7 @@ function CertStack() {
             <div className="cs-logo">
               {c.logo ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img className={"wide" in c && c.wide ? "wide" : ""} src={`/logos/${c.logo}`} alt="" aria-hidden />
+                <img className={"wide" in c && c.wide ? "wide" : ""} src={`/logos/${c.logo}`} alt="" aria-hidden width={64} height={40} loading="lazy" decoding="async" />
               ) : (
                 <b>A</b>
               )}
@@ -698,6 +718,10 @@ function CertStack() {
     </div>
   );
 }
+
+/* ==========================================================================
+   EDIT HERE: SKILLS PROGRESS METRICS & MARQUEES
+   ========================================================================== */
 
 /* ---------- Skills: metrics progress bars + sticker marquees ---------- */
 
@@ -774,6 +798,10 @@ export function Skills() {
   );
 }
 
+/* ==========================================================================
+   EDIT HERE: FAQ ACCORDION SECTION
+   ========================================================================== */
+
 /* ---------- FAQ: chat bubbles ---------- */
 
 export function Faq() {
@@ -811,7 +839,7 @@ export function Faq() {
                 <p>{f.a}</p>
                 <span className="qa-av">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/me-cut.webp" alt="" aria-hidden />
+                  <img src="/me-cut.webp" alt="" aria-hidden width={48} height={48} loading="lazy" decoding="async" />
                 </span>
               </div>
             </div>
@@ -821,6 +849,10 @@ export function Faq() {
     </section>
   );
 }
+
+/* ==========================================================================
+   EDIT HERE: FOOTER & CONTACT SECTION
+   ========================================================================== */
 
 /* ---------- Footer / contact ---------- */
 
